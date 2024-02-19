@@ -1,0 +1,118 @@
+aws - amazon web services
+
+requirements:
+aws account
+basic knowledge about cloud
+
+========================================================================================================================
+
+
+~ bulling and cost management
+1. create a (budget of max $10) monthly cost budget from billing a cost management, give your email will recive 3 time
+    1 . when 80%
+    2 . when 100%
+    3 . when forcast to react 100%
+
+
+========================================================================================================================
+
+
+~ identity and access management (IAM)
+1. user
+2. roles
+3. groups
+
+no active keys for root account 
+
+1. create a IAM user and attact the administive access policy and create user. then loggnig as IAM user
+2. create a IAM group as name "admin-group" and add 1-2 IAM-users to it.
+
+
+** also enable the mfa to protect your account
+
+========================================================================================================================
+
+~ tradicianal vs cloud infra
+
+server      ** on demand
+stroage        shared resource
+router   vs    for anyone
+switch       ** elasticity - cricket is live 
+firewall      ** pay as u go
+
+==========================================================================================================================
+
+image building a dropbox from scratck
+
+buy hardward - what? how? backup? power supply?
+installation - racks? near? building? what softwate? upgrade?
+expansion - how? investment?
+opration - software auto scale?
+
+==========================================================================================================================
+
+
+types of clouds
+1. iaas - os level responsibility - ex: ec2
+2. paas - code level responsibility - node,java,python - ex: elastic beanstack
+3 saas - consumer - ex: yt, salesforce
+
+==========================================================================================================================
+
+
+controle over cloud
+1. priate cloud - you own hardward 
+                - you install own software
+                - only use use it
+                - compliance
+
+2. public cloud - economy of scale
+                - elasticity
+
+3. hybrid cloud - both public and private cloud
+                - cloud and onprims
+                - how both connect them? not only internet, also bries-case and wires...
+
+4. multi cloud - aws,azure,open stack
+
+==========================================================================================================================
+
+
+aws:
+    - amazon compant
+    - on demand cloud
+    - pay as u go model
+    - revesve and demand both different
+
+    - services:
+        - stroage:
+            - media
+            - batabase
+        - compute:
+            - virtual servers
+            - more
+
+==========================================================================================================================
+
+aws global infrastructure
+
+regions: physical location(ap-south-1,ap-south-2,us-east-1,..)
+availability zones (AZ's) : data centers
+edge location - nearest AZ;
+
+muilti-region => host stock market or back in only one az's, host in multy regions.
+
+
+cloudfront, edge-cache
+==========================================================================================================================
+
+aws shared responsibility model
+
+ def:   aws    - responsibility of the cloud
+      customer - responsibility in the cloud    ex: user-date,data-encryption,ec2,scalling etc..
+
+==========================================================================================================================
+
+IAM: identity and access management
+
+username and password and attach policy
