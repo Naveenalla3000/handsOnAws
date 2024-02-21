@@ -1,0 +1,239 @@
+
+IAM: identity and access management
+
+username and password and attach policy
+
+
+monitor / dev / testers 
+
+role - nothing but hat / assume
+group - clud, 2ND year 
+user - attach to grup 
+
+policy(both json and GUI) - rules 
+
+- **least privilage persmission policy possible
+
+2 types of access 
+    1. console 
+    2. aws api
+
+
+ARN - (amazon resource name)
+
+{
+    "Version":"2024-02-20",
+    "Statement":{
+        "Effect":"Allow",
+        // Effect is tuple (Allow,deny)
+        "Action":"s3:ListBucket",
+        // policies
+        "Resource":"arn:aws:s3::"example_bucket"
+    }
+}
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        }
+    ]
+}
+
+- identity based & Resource based
+- 6 support policies by aws
+    1. identitybased policy : do's and not to do
+    2. resource based policies: attach policies to resource instaed of identity or user
+    3. persmission boundary: setting boundary (do not grand persmission)
+    4. **organizational SCPs : limit the persmission not grant the persmission.(controle the policies)
+    5. ACL's : cross-account persmission
+    6. session policy
+
+
+**IAM Access Analyzer - service tool to generate least privilage policy based on access active 
+
+====================================================================================================
+
+- install awscli form brew 
+- run command 
+    `aws configure`
+- create a IAM user by attaching to admin-group from IAM
+- go to security creadintials
+- create access key and download ACCESS KEY and SECRET KEY (don't share with others)
+- enter us-east-1 or ap-south-1 as defualt region
+- enter json for output formate 
+
+naveen~$aws configure
+AWS Access Key ID [None]: ***************
+AWS Secret Access Key [None]: ******************
+Default region name [None]: us-east-1
+Default output format [None]: json
+naveen~$aws s3 ls   
+naveen~$aws help
+
+====================================================================================================
+
+compute services(ec2)
+
+computer === instance
+
+cpu:
+    - processor
+    - memory
+    - hardware/SSD
+    - network interface card(internet)
+    - Network switch or router
+
+
+    Virtualization:
+        install software (top of hypervisor) - that shares bare-metal (memory ,storage, processor simply hardware)
+        portability
+        - type-1
+        - type-2
+
+instance type
+    1. general 
+    2. compute
+    3. memory
+    4. storage
+    5. gpu optimized
+
+AMI: Amazom mechine image(os instace template)
+
+key and ssh => enter the ec2(400 to read only)
+
+**chmod 400 key.pem
+
+**user-data && **meta-data
+
+**user-data: runs only when the instace start for the first time
+**meta-data: information about your instace  curl http://169.254.169.254/latest/meta-data after ssh login
+
+**http://169.254.169.254/latest/meta-data/ google it....
+
+
+**for Version-2
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+
+**We recommend Savings Plans over Reserved Instances. 
+Savings Plans are the easiest and most flexible way to save money on your AWS compute costs and 
+offer lower prices 
+(up to ***72% off) 
+just like Reserved Instances. To learn more and get started with Savings Plans click here 
+
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+identity-credentials/
+instance-action
+instance-id
+instance-life-cycle
+instance-type
+local-hostname
+local-ipv4
+mac
+managed-ssh-keys/
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+reservation-id
+security-groups
+services/
+system[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/hostname
+ip-172-31-30-46.ec2.internal[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/hostname
+ip-172-31-30-46.ec2.internal[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+identity-credentials/
+instance-action
+instance-id
+instance-life-cycle
+instance-type
+local-hostname
+local-ipv4
+mac
+managed-ssh-keys/
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+reservation-id
+security-groups
+services/
+system[ec2-user@ip-172-31-30-46 ~]$ ls
+[ec2-user@ip-172-31-30-46 ~]$ ls -la
+total 12
+drwx------. 3 ec2-user ec2-user  74 Feb 20 09:41 .
+drwxr-xr-x. 3 root     root      22 Feb 20 09:41 ..
+-rw-r--r--. 1 ec2-user ec2-user  18 Jan 28  2023 .bash_logout
+-rw-r--r--. 1 ec2-user ec2-user 141 Jan 28  2023 .bash_profile
+-rw-r--r--. 1 ec2-user ec2-user 492 Jan 28  2023 .bashrc
+drwx------. 2 ec2-user ec2-user  29 Feb 20 09:41 .ssh
+[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/profile
+default-hvm[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/network
+interfaces/[ec2-user@ip-172-31-30-46 ~]$ curl http://169.254.169.254/latest/meta-data/public-hostname
+ec2-3-93-56-157.compute-1.amazonaws.com[ec2-user@ip-172-31-30-46 ~]$ 
+
+
+====================================================================================================
+
+
+EKS: elastic container service:
+
+host a workpress mechine in docker container
+
+hub.docker === ecr(aws elastic container registery) (hold the images like docker hub)
+
+1.create a cluster === containers
+2.name as `ytcluster` of fargatetype/ not ec2 instacnce type
+3.click on create 
+4.go to cloudformation check the details
+5.back to eks and go to "taskdefination"
+6.name it "wordpress" and select lanchtype as aws-forgate
+7.configure the as minimum as possible
+8.fill the name and image url as wordpress(pulled from hub.docker.com) || but if image in aws-cconatiner-registery enter url
+9.create task
+
+11.back to cluster and click on youtube (prevously created cluser)
+12.navigate to tasks and click on run new task
+13.in Deployment configuration => go to family and select the wordpress
+14.scrool bottom and check VPC && network
+14.crete security group. open port 80 for ssh
+15. after the task is created -> go to task -> networks -> copy public ip add and open in chorme
+
+** unregistre the task and delete it from cluser and also -> task defination and delete it (make sure the all inactive)
+ 
+ aws-elastic container registery = docker
+
+
+================================================================================================================
+
+AWS Batch and Lightsail service:
+
