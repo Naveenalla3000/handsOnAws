@@ -1,0 +1,171 @@
+Security Groups
+- virtual firewall for your EC2 instances
+- security at the protocol and port access level
+- all outbound traffic and 
+  no inbound traffic,
+- You can modify the rules for a security group at any time
+- Security groups are stateful (If you allow an incoming traffic on port 80, the outgoing traffic on port 80 will be automatically allowed.)
+- You can’t block specific IP addresses using a security group
+- Instance can have multiple Security groups.
+- Security group rule allows CIDR, IP, and Security Group as destinations.
+
+
+Network Access Control List
+- (ACL) is an optional layer of security for your VPC that acts as a firewall for controlling traffic 
+  in and out of one or more subnets
+- Inbound and outbound traffic is allowed or denied by default.
+- can’t modify the rules for a network ACL until you disassociate it from the subnet
+- network ACLs are stateless (If you allow an incoming port 80, you would also need to apply the rule for outgoing traffic)
+- you can block specific IP addresses using a network ACL
+- Subnet can have only one NACL.
+- Network ACL rule only allows CIDR as a destination.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+storage services in aws:
+  1. s3 various buckets
+
+
+storage types in aws
+  1. block storage(instace store)
+  2. file storage
+  3. object storage
+
+  block storage(instace store)(EBS):
+    - block staiorage
+    - ssd
+    - install os 
+    - os create volumes
+    - not sharable
+
+
+  file stoage:
+    - network attach server
+    - can't install os on them
+    - can sharable
+
+
+  object storage:
+    - first service in aws
+    - everthing is object
+    - web browser friendly protocals
+    
+  
+  ec2 == ebs,ebs, != ec2
+         |   |
+         os  anything
+
+
+**EC2 can have miltiple EBS
+**EBS cannot have multiple EC2;
+**EC2 and EBS are in the same AZ. 
+                {{ EBS muilti-attach }}
+
+
+
+Amazon EBS Multi-Attach
+
+
+- general perpose
+  - GP3
+  - GP2
+  **- max iops : 16,000;
+  - increse the disk size get more iops.
+
+Provisioned IOPS
+  - IO2
+  - IO1
+  **- max iops: 64,000
+  - you can decide Iops and pay for it.
+
+  **- when we spin-up a EC2 instace, one EBS is automatically spined-up for us, but that EBS is root EBS(means that EBS will delete by termination of EC2 instace by default)
+
+
+  snapchats:
+    - EBS snapchats && DATA life Cycle Manager
+
+    - snapchats lives in region not in one particular AZ.
+    - snapchats can be use as AMI
+    - snapchats stored in S3.
+    - increamental updates (only the new changes will stored)
+
+
+  Data Life Cycles:
+    - auto create & delete the EBS & convert AMI
+    - Data Backup (Audit)
+    - update AMI
+
+  Instace Store:
+    - EC2 and EBS can be different mechines (attach with nack card)
+    - instace stoage are in same mechine(same EC2 hosts)
+      - physical attached
+      - high performance
+      - **lose all the data on shoudown
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Elastic file Storage:
+  - linux vs windows
+  - if the EFS and two EC2 instaces are in one VPC and
+    another EC2 and
+    also one on-prem client
+    want to access the EFS 
+    that can be do that, 
+    only probem here is all should be in same Linux mechine.(because  NFS is only avaiable in LInux)
+    NETWORK FILE SYSTEM for LINUX 
+
+
+SIMPLE STOAGE SERVICE:
+  - object storage
+  - api access
+  - bucket: container(PNG, MP4)
+  - URL based access
+  - default block all public access
+  - S3 gataway endpoint vs internet gateway
+
+  -** Universal Unique Name
+  -** Trasfer Acceleration (improves the speed for uploda and download)
+  - Events (SNS, SQS to process video)
+  - version and Replication
+
+  --*** S3 stoage class:
+    depends on HOW FAST I WANT TO ACCESS THE DATA and HOW QUICKLY I WANT TO ACCESS THE DATA
+
+    -- ** (3 AZ avaiability)
+    
+    1. S3-standard = default = general perpose = quickly access the data.
+    2. S3-IA = Ai will replaces the objects 
+    3. S3-one-zone-IA = 1-zone avaiability = singe digit milliseconds
+    4. S3-standard-IA
+
+    **90 days
+    5. Glacier-instant-retieval = milliseconds
+    6. Glacier-flexible-retieval = min to hrs for reteriveal of data 
+
+
+
+
+Amazom FSx file system:
+
+
+1. for LUSTER = high performance = Mechine learning
+2. windows file system = 
+
+
+AWS STORAGE GATEWAY:
+  file gateway
+  on your on-prem device install something know as storage gateway and this this storage gateway types
+  (
+    1. file gateway
+    2. FSx
+    3. volumes
+    4. tape
+  )
+
+  AWS ELASTCI DISASTE RECOVERY
+  - on-prem recovery
+  - point in time recover
