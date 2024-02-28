@@ -1,0 +1,13 @@
+aws lambda:
+    - server-less(means server are present behind, but we as a programmer no need to config them)
+    - compute service
+    - pay as per usage
+    - one million req per month free
+    - lambda fee tire
+    - 
+        - file process
+        - stream process
+        - web application with useing api-gataway
+        - backend
+        - IOT backend
+        - mobile backend
